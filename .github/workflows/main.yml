@@ -19,3 +19,6 @@ jobs:
 
       - name: execute py script # run main.py
         run: python update_index.py
+
+      - name: Deploy GitHub Pages site
+        uses: actions/deploy-pages@v1.2.

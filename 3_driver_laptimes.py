@@ -23,7 +23,7 @@ driver_performance.LapTime = (
 # driver_performance = driver_performance.loc[
 #     (driver_performance.LapTime <= 1.10 * driver_performance.LapTime.min())
 # ]
-# driver_performance = driver_performance.loc[driver_performance.IsAccurate]
+driver_performance = driver_performance.loc[driver_performance.IsAccurate]
 # %%
 team_dump = []
 fig = go.Figure(
@@ -31,7 +31,7 @@ fig = go.Figure(
         template="plotly_dark",
         width=1000,
         height=1000,
-        title=dict(text='Drivers Lap Times', font=dict(size=30), automargin=False),
+        title=dict(text=f"Drivers Lap Times - {race.event.Location} {race.session_info['StartDate'].year} - {race.session_info['Type']}", font=dict(size=30), automargin=False),
         yaxis_range=[
             driver_performance.LapTime.min(),
             1.10 * driver_performance.LapTime.min(),

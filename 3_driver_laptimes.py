@@ -74,7 +74,8 @@ def generate_driver_laptimes_plot(year, gp, identifier):
     fig.write_html(
         os.path.join(
             season_dir_path,
-            unicodedata.normalize("NFD", race.event.Location)
+            f"{race.event.RoundNumber:02}_"
+            + unicodedata.normalize("NFD", race.event.Location)
             .encode("ascii", "ignore")
             .lower()
             .replace(b" ", b"_")

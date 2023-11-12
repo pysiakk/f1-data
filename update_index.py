@@ -15,7 +15,6 @@ def generate_tree(path, html=""):
             html += f"<li><b>{year}</b><ul>"
             year_path = os.path.join(section_path, year)
             files = glob.glob(year_path + "/*")
-            files = sorted(files, key=os.path.getctime)
             for file in files:
                 html += f'<li><a href="{file}">{os.path.basename(file)}</a></li>'
             html += "</li></ul>"

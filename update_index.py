@@ -1,5 +1,8 @@
+# %%
 import glob
 import os
+
+from bs4 import BeautifulSoup as bs
 
 
 # %%
@@ -21,5 +24,11 @@ def generate_tree(path, html=""):
     return html
 
 
+soup = bs(generate_tree("."))
+prettyHTML = soup.prettify()
+
+
 with open("index.html", "w") as f:
-    f.write(generate_tree("."))
+    f.write(prettyHTML)
+
+# %%

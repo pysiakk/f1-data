@@ -7,6 +7,12 @@ on:
       
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -51,3 +57,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
           folder: "."
+      
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: actions/deploy-pages@v2

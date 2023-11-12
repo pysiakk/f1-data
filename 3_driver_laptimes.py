@@ -1,3 +1,8 @@
+# %%
+import os
+import unicodedata
+from datetime import datetime
+
 import fastf1 as f1
 import matplotlib.pyplot as plt
 import numpy as np
@@ -5,10 +10,9 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import seaborn as sns
-import unicodedata
-from datetime import datetime
 
 from utils import team_color_hex
+
 
 # %%
 def generate_driver_laptimes_plot(year, gp, identifier):
@@ -61,15 +65,31 @@ def generate_driver_laptimes_plot(year, gp, identifier):
     fig.update_yaxes(title="Lap time")
     fig.update_xaxes(title="Lap")
 
-    fig.write_html(
-        f"figs/driver_laptimes/{unicodedata.normalize('NFD', race.event.Location).encode('ascii', 'ignore').lower().replace(b' ', b'_').decode('utf-8')}_{race.event.EventDate.year}.html"
+    season_dir_path = os.path.join(
+        "figs", "driver_laptimes", str(race.event.EventDate.year)
     )
+    if not os.path.exists(season_dir_path):
+        os.mkdir(season_dir_path)
+
+    fig.write_html(
+        os.path.join(
+            season_dir_path,
+            unicodedata.normalize("NFD", race.event.Location)
+            .encode("ascii", "ignore")
+            .lower()
+            .replace(b" ", b"_")
+            .decode("utf-8")
+            + ".html",
+        )
+    )
+
 
 # %%
 schedule = f1.get_event_schedule(2023)
-schedule.loc[:,'Session5Date'] = pd.to_datetime(schedule.Session5Date, utc=True)
+schedule.loc[:, "Session5Date"] = pd.to_datetime(schedule.Session5Date, utc=True)
 schedule = schedule.loc[
-    (schedule.EventFormat != "testing") & (schedule.Session5Date < pd.Timestamp(datetime.now(), tz=0))
+    (schedule.EventFormat != "testing")
+    & (schedule.Session5Date < pd.Timestamp(datetime.now(), tz=0))
 ]
 for event in schedule.RoundNumber:
     generate_driver_laptimes_plot(2023, event, "race")

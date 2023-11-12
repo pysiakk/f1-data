@@ -17,7 +17,7 @@ def generate_tree(path, html=""):
             files = glob.glob(year_path + "/*")
             for file in sorted(files):
                 html += f'<li><a href="{file}">{os.path.basename(file)}</a></li>'
-            html += "</li></ul>"
+            html += "</ul></li>"
         html += "</ul>"
 
     return html

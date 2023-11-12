@@ -86,13 +86,14 @@ def generate_driver_laptimes_plot(year, gp, identifier):
 
 
 # %%
-schedule = f1.get_event_schedule(2023)
+year = 2022
+schedule = f1.get_event_schedule(year)
 schedule.loc[:, "Session5Date"] = pd.to_datetime(schedule.Session5Date, utc=True)
 schedule = schedule.loc[
     (schedule.EventFormat != "testing")
     & (schedule.Session5Date < pd.Timestamp(datetime.now(), tz=0))
 ]
 for event in schedule.RoundNumber:
-    generate_driver_laptimes_plot(2023, event, "race")
+    generate_driver_laptimes_plot(year, event, "race")
 
 # %%

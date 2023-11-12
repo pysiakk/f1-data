@@ -35,16 +35,13 @@ jobs:
 
       - name: install required packages
         run: pip install bs4
-      
-      - name: execute py script # run main.py
-        run: |
-          python update_index.py
-          ls
+        
       - uses: actions/checkout@v4
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add .
+          python update_index.py
+          git add index.html
           git commit -m "index.html update"
           git push
   # Single deploy job since we're just deploying

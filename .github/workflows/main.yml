@@ -44,6 +44,9 @@ jobs:
           git add index.html
           git commit -m "index.html update"
           git push
+      - name: Sleep for 60 seconds
+        run: sleep 60s
+        shell: bash
   # Single deploy job since we're just deploying
   deploy:
     needs: build

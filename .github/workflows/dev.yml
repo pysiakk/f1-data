@@ -22,8 +22,8 @@ jobs:
       - name: install required packages
         run: pip install bs4
         
-      - uses: actions/checkout@v4
-      - run: git add index.html
+      - name: run python script
+      - run:  python update_index.py
       
       - name: Push
         uses: s0/git-publish-subdir-action@develop

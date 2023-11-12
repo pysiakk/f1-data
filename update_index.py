@@ -9,7 +9,7 @@ def generate_tree(path, html=""):
         html += "<ul>"
         section_path = os.path.join("figs", dir)
         for year in os.listdir(section_path):
-            html += "<li><ul>"
+            html += f"<li><b>{year}</b><ul>"
             year_path = os.path.join(section_path, year)
             files = glob.glob(year_path + "/*")
             files = sorted(files, key=os.path.getctime)

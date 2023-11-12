@@ -33,6 +33,9 @@ jobs:
         with:
           python-version: '3.11' # install the python version needed
 
+      - name: install required packages
+        run: pip install bs4
+      
       - name: execute py script # run main.py
         run: python update_index.py
   # Single deploy job since we're just deploying

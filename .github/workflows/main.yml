@@ -22,34 +22,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout repo content
-        uses: actions/checkout@v2 # checkout the repository content
-
-      - name: setup python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11' # install the python version needed
-
-      - name: install required packages
-        run: pip install bs4
-        
-      - uses: actions/checkout@v4
-      - run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          python update_index.py
-          git add index.html
-          git commit -m "index.html update"
-          git push
-      - name: Sleep for 60 seconds
-        run: sleep 60s
-        shell: bash
   # Single deploy job since we're just deploying
   deploy:
-    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
